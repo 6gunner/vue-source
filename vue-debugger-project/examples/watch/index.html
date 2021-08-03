@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Watch监听</title>
+  <script src="../../dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    {{title}}
+    <button @click="changeTitle">change</button>
+  </div>
+  <script>
+    new Vue({
+      el: '#app',
+      data() {
+        return {
+          title: 'Hello Vue',
+          nested: {
+            a: {
+              b: 1,
+            }
+          }
+        }
+      },
+      methods: {
+        changeTitle() {
+          this.title = 'Hello Vue ' + Math.random() * 100;
+          this.nested.a.b ++;
+        }
+      },
+      watch: {
+        title: {
+          handler(newVal, oldVal) {
+            console.log(newVal)
+          }
+        },
+        'nested': {
+          deep: false,
+          handler() {
+            console.log(`nested 修改了`);
+          }
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

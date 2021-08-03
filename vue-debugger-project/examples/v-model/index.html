@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Vue V-Model</title>
+  <script src="../../dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="dynamic-component-demo">
+  </div>
+  <script>
+    Vue.component('my-checkbox', {
+      model: {
+        prop: 'checked',
+        event: 'change'
+      },
+      props: {
+        value: String,
+        checked: {
+          type: Boolean,
+          default: false
+        }
+      },
+      template: `
+        <div>
+          <input type="checkbox" :value="value" :checked="checked" @change="onChange" /> {{value}} 
+        </div>
+      `,
+      methods: {
+        onChange(e) {
+this.$emit('change', e.target.checked);
+        }
+      }
+    })
+    new Vue({
+      el: "#dynamic-component-demo",
+      data: {
+        fooA: false,
+        fooB: false,
+      },
+      template: `<div>
+        <my-checkbox v-model="fooA" value="fooA"></my-checkbox>
+        <my-checkbox v-model="fooB" value="fooB"></my-checkbox>
+        Result: fooA: {{fooA}} fooB: {{fooB}}
+        </div>
+        `,
+    });
+  </script>
+</body>
+
+</html>

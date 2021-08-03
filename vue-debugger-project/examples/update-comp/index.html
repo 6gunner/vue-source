@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>调试组件update的过程</title>
+  <script src="../../dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    
+  </div>
+</body>
+
+<script>
+
+new Vue({
+  el: '#app',
+  data() {
+    return {
+showList: false,
+      items: [
+      {id: 0, val: 'A'},
+          {id: 1, val: 'B'},
+          {id: 2, val: 'C'},
+          {id: 3, val: 'D'}
+      ]
+    }
+  },
+  template: `<div>
+      <ul v-if="showList">
+        <li v-for="item in items" :key="item.id">{{item.val}}</li>
+      </ul>
+      <ol v-else>
+        <li v-for="item in items" :key="item.id">{{item.val}}</li>
+      </ol>
+    
+    <button @click="changeTheme">changeTheme</button>
+    <button @click="changeList">changeList</button>
+  </div>
+    `,
+  methods:{
+    changeTheme() {
+      this.showList = !this.showList;
+    },
+    changeList() {
+      this.items.reverse().push({id: 4, val: 'E'})
+    }
+  }
+})
+
+
+</script>
+
+</html>
